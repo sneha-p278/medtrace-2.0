@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedTrace - Manufacturer Portal</title>
+  
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        :root {
+            --primary-color: #0095ff;
+            --primary-dark: #1a56db;
+            --text-gray: #6b7280;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            background-color: #f9fafb;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 250px;
+            background: white;
+            padding: 1rem;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .logo-icon {
+            background: var(--primary-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            font-size: 0.875rem;
+            color: var(--text-gray);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            color: var(--text-gray);
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-item.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            color: #111827;
+            font-size: 1.875rem;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: white;
+        }
+
+        .new-shipment-btn {
+            background: var(--primary-dark);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        table {
+            width: 100%;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 1rem;
+            color: var(--text-gray);
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 500;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .status-badge {
+            background: #fff7ed;
+            color: #c2410c;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .view-btn {
+            background: var(--primary-dark);
+            color: white;
+        }
+
+        .edit-btn {
+            background: #10b981;
+            color: white;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            width: 500px;
+            margin: 50px auto;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-gray);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+        }
+
+        .submit-btn {
+            background: var(--primary-dark);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">M</div>
+            <div>
+                <div><strong>MedTrace</strong></div>
+                <div class="logo-text">Manufacturer Portal</div>
+            </div>
+        </div>
+        <nav>
+            <a href="#" class="nav-item" onclick="window.location.href='mdashboard.html';">
+                <span>📊</span>
+                Dashboard
+            </a>
+            <a href="#" class="nav-item active" onclick="window.location.href='mship.html';">
+                <span>🚚</span>
+                Shipments
+            </a>
+            <a href="#" class="nav-item" onclick="window.location.href='mprofile.html';">
+                <span>👤</span>
+                Profile
+            </a>
+            <a href="#" class="nav-item">
+                <span>🔔</span>
+                Notifications
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1>Shipments</h1>
+            <button class="new-shipment-btn" onclick="openAddModal()">
+                <span>+</span>
+                New Shipment
+            </button>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" placeholder="Search shipments..." class="search-input">
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Shipment ID</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Batch Number</th>
+                    <th>Destination</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="shipments-table-body">
+                <tr>
+                    <td>SHP-2024-001</td>
+                    <td>Paracetamol 500mg</td>
+                    <td>50,000 units</td>
+                    <td>23566523</td>
+                    <td>Central Pharmacy Ltd</td>
+                    <td><span class="status-badge">In Transit</span></td>
+                    <td>2024-03-15</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn view-btn">👁️</button>
+                            <button class="action-btn edit-btn">✏️</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    <div id="addShipmentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Shipment</h2>
+                <button class="close-btn" onclick="closeAddModal()">×</button>
+            </div>
+            <form id="shipmentForm">
+                <div class="form-group">
+                    <label for="product">Product</label>
+                    <input type="text" id="product" required>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" id="quantity" required>
+                </div>
+                <div class="form-group">
+                    <label for="batchNumber">Batch Number</label>
+                    <input type="text" id="batchNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="destination">Destination</label>
+                    <input type="text" id="destination" required>
+                </div>
+                <div class="form-group">
+                    <label for="shipmentDate">Shipment Date</label>
+                    <input type="date" id="shipmentDate" required>
+                </div>
+                <button type="submit" class="submit-btn">Create Shipment</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Shipments data array
+        let shipments = [
+            {
+                id: 'SHP-2024-001',
+                product: 'Paracetamol 500mg',
+                quantity: '50,000 units',
+                batchNumber: '23566523',
+                destination: 'Central Pharmacy Ltd',
+                status: 'In Transit',
+                date: '2024-03-15'
+            }
+        ];
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('#shipments-table-body tr');
+            
+            rows.forEach(row => {
+                const shipmentId = row.cells[0].textContent.toLowerCase();
+                const product = row.cells[1].textContent.toLowerCase();
+                const batchNumber = row.cells[3].textContent.toLowerCase();
+                
+                const matches = shipmentId.includes(searchTerm) || 
+                              product.includes(searchTerm) || 
+                              batchNumber.includes(searchTerm);
+                              
+                row.style.display = matches ? '' : 'none';
+            });
+        });
+
+        // Modal functions
+        function openAddModal() {
+            document.getElementById('addShipmentModal').style.display = 'block';
+        }
+
+        function closeAddModal() {
+            document.getElementById('addShipmentModal').style.display = 'none';
+        }
+
+        // Add new shipment
+        document.getElementById('shipmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newShipment = {
+                id: `SHP-2024-${String(shipments.length + 1).padStart(3, '0')}`,
+                product: document.getElementById('product').value,
+                quantity: document.getElementById('quantity').value + ' units',
+                batchNumber: document.getElementById('batchNumber').value,
+                destination: document.getElementById('destination').value,
+                status: 'Pending',
+                date: document.getElementById('shipmentDate').value
+            };
+            
+            shipments.push(newShipment);
+            addShipmentToTable(newShipment);
+            closeAddModal();
+            this.reset();
+        });
+
+        function addShipmentToTable(shipment) {
+            const tbody = document.getElementById('shipments-table-body');
+            const row = document.createElement('tr');
+            
+            row.innerHTML = `
+                <td>${shipment.id}</td>
+                <td>${shipment.product}</td>
+                <td>${shipment.quantity}</td>
+                <td>${shipment.batchNumber}</td>
+                <td>${shipment.destination}</td>
+                <td><span class="status-badge">${shipment.status}</span></td>
+                <td>${shipment.date}</td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="action-btn view-btn">👁️</button>
+                        <button class="action-btn edit-btn">✏️</button>
+                    </div>
+                </td>
+            `;
+            
+            tbody.insertBefore(row, tbody.firstChild);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('addShipmentModal')) {
+                closeAddModal();
+            }
+        }
+    </script>
+</body>
+</html>
