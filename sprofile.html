@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedTrace - Company Profile</title>
+    <style>
+        :root {
+            --primary-color: #0096FF;
+            --text-gray: #666;
+            --border-color: #e1e1e1;
+            --navy-blue: #1a237e;
+            --success-green: #4CAF50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 250px;
+            background: white;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            background: #0d6efd;
+            border-radius: 8px;
+            padding: 8px;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .logo-subtitle {
+            font-size: 12px;
+            color: #0d6efd;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin: 5px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .menu-item.active {
+            background: #0d6efd;
+            color: white;
+        }
+
+        .menu-item i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header-title h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .header-title p {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        .edit-profile-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Company Information Section */
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: var(--navy-blue);
+            font-weight: 600;
+        }
+
+        .verified-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--success-green);
+            font-size: 14px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .info-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .field-label {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        .field-value {
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* Security Settings Section */
+        .security-option {
+            display: flex;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+
+        .security-option:last-child {
+            border-bottom: none;
+        }
+
+        .security-option:hover {
+            background: #f8f9fa;
+        }
+
+        .security-icon {
+            margin-right: 12px;
+            color: var(--text-gray);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/api/placeholder/40/40" alt="MedTrace Logo">
+            <div>
+                <div class="logo-text">MedTrace</div>
+                <div class="logo-subtitle">Retailer Portal</div>
+            </div>
+        </div>
+        
+        <div class="menu-item" onclick="window.location.href='sdashboard.html';">
+            <i class="fas fa-chart-line"></i>
+            Dashboard
+        </div>
+        <div class="menu-item" onclick="window.location.href='sinventory.html';">
+            <i class="fas fa-box" ></i>
+            Inventory
+        </div>
+               <div class="menu-item active" onclick="window.location.href='sprofile.html';">
+            <i class="fas fa-user"></i>
+            Profile
+        </div>
+        <div class="menu-item" onclick="window.location.href='snotification.html';">
+            <i class="fas fa-bell"></i>
+            Notifications
+        </div>
+        
+    </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <div class="header-title">
+                    <h1>Company Profile</h1>
+                    <p>Manage your distributor information and settings</p>
+                </div>
+                <button class="edit-profile-btn">
+                    <span>Edit Profile</span>
+                </button>
+            </div>
+
+            <!-- Company Information Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Company Information</h2>
+                    <div class="verified-badge">
+                        <span>✓</span>
+                        <span>Verified</span>
+                    </div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-field">
+                        <div class="field-label">Company Name</div>
+                        <div class="field-value">MedEx Distributors</div>
+                    </div>
+                    <div class="info-field">
+                        <div class="field-label">License Number</div>
+                        <div class="field-value">DL-2024-1234</div>
+                    </div>
+                    <div class="info-field">
+                        <div class="field-label">Email Address</div>
+                        <div class="field-value">contact@medex.com</div>
+                    </div>
+                    <div class="info-field">
+                        <div class="field-label">Phone Number</div>
+                        <div class="field-value">+1 (555) 123-4567</div>
+                    </div>
+                    <div class="info-field">
+                        <div class="field-label">Address</div>
+                        <div class="field-value">123 Medical Plaza, Suite 100</div>
+                    </div>
+                    <div class="info-field">
+                        <div class="field-label">City</div>
+                        <div class="field-value">Sacramento</div>
+                    </div>
+                    <div class="info-field">
+                        <div class="field-label">State</div>
+                        <div class="field-value">CA</div>
+                    </div>
+                    <div class="info-field">
+                        <div class="field-label">ZIP Code</div>
+                        <div class="field-value">95814</div>
+                    </div>
+                    <div class="info-field">
+                        <div class="field-label">Website</div>
+                        <div class="field-value">www.medex-distributors.com</div>
+                    </div>
+                    <div class="info-field">
+                        <div class="field-label">Operating Hours</div>
+                        <div class="field-value">8:00 AM - 6:00 PM PST</div>
+                    </div>
+                    <div class="info-field">
+                        <div class="field-label">Contact Person</div>
+                        <div class="field-value">John Smith</div>
+                    </div>
+                    <div class="info-field">
+                        <div class="field-label">Contact Role</div>
+                        <div class="field-value">Operations Manager</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Settings Section -->
+            <div class="section">
+                <h2 class="section-title">Security Settings</h2>
+                <div class="security-option">
+                    <span class="security-icon">🔑</span>
+                    <span>Change Password</span>
+                </div>
+                <div class="security-option">
+                    <span class="security-icon">🔒</span>
+                    <span>Two-Factor Authentication</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add hover effects for buttons
+        const editButton = document.querySelector('.edit-profile-btn');
+        editButton.addEventListener('mouseenter', () => {
+            editButton.style.opacity = '0.9';
+        });
+        editButton.addEventListener('mouseleave', () => {
+            editButton.style.opacity = '1';
+        });
+
+        // Add click handlers for security options
+        const securityOptions = document.querySelectorAll('.security-option');
+        securityOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const action = option.textContent.trim();
+                if (action === 'Change Password') {
+                    // Implement password change functionality
+                    console.log('Opening password change dialog');
+                } else if (action === 'Two-Factor Authentication') {
+                    // Implement 2FA setup
+                    console.log('Opening 2FA setup');
+                }
+            });
+        });
+
+        // Add edit profile functionality
+        document.querySelector('.edit-profile-btn').addEventListener('click', () => {
+            // Implement edit profile functionality
+            console.log('Opening edit profile form');
+        });
+    </script>
+</body>
+</html>

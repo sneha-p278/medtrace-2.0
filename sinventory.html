@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedTrace - Inventory</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Previous styles remain the same */
+        :root {
+            --primary-color: #0096FF;
+            --text-gray: #666;
+            --border-color: #e1e1e1;
+            --red: #ff4444;
+            --blue: #2196f3;
+            --green: #4CAF50;
+            --yellow: #ffc107;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 250px;
+            background: white;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            background: #0d6efd;
+            border-radius: 8px;
+            padding: 8px;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .logo-subtitle {
+            font-size: 12px;
+            color: #0d6efd;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin: 5px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .menu-item.active {
+            background: #0d6efd;
+            color: white;
+        }
+
+        .menu-item i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .inventory-container {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .upload-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .upload-preview {
+            width: 300px;
+            height: 200px;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f9f9f9;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-preview:hover {
+            border-color: var(--blue);
+        }
+
+        .upload-preview i {
+            font-size: 48px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .upload-text {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        .verification-section {
+            max-width: 400px;
+            margin: 0 auto;
+            display: none;  /* Initially hidden */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .verification-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--text-gray);
+        }
+
+        .digit-input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .digit-input {
+            width: 40px;
+            height: 50px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .digit-input:focus {
+            border-color: var(--blue);
+            outline: none;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--blue);
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/api/placeholder/40/40" alt="MedTrace Logo">
+            <div>
+                <div class="logo-text">MedTrace</div>
+                <div class="logo-subtitle">Retailer Portal</div>
+            </div>
+        </div>
+       
+        <div class="menu-item" onclick="window.location.href='sdashboard.html';">
+            <i class="fas fa-chart-line"></i>
+            Dashboard
+        </div>
+        <div class="menu-item active" onclick="window.location.href='sinventory.html';">
+            <i class="fas fa-box"></i>
+            Inventory
+        </div>
+        <div class="menu-item" onclick="window.location.href='sprofile.html';">
+            <i class="fas fa-user"></i>
+            Profile
+        </div>
+        <div class="menu-item" onclick="window.location.href='snotification.html';">
+            <i class="fas fa-bell"></i>
+            Notifications
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="inventory-container">
+            <h2 class="section-title">Upload Image</h2>
+            
+            <div class="upload-section">
+                <label for="photo-upload" class="upload-preview">
+                    <i class="fas fa-camera"></i>
+                    <span class="upload-text">Click to upload photo</span>
+                </label>
+                <input type="file" id="photo-upload" accept="image/*" style="display: none;">
+            </div>
+
+            <div class="verification-section">
+                <h3 class="verification-title">Enter 6-digit verification code</h3>
+                <div class="digit-input-container">
+                    <input type="text" maxlength="1" class="digit-input" pattern="[0-9]">
+                    <input type="text" maxlength="1" class="digit-input" pattern="[0-9]">
+                    <input type="text" maxlength="1" class="digit-input" pattern="[0-9]">
+                    <input type="text" maxlength="1" class="digit-input" pattern="[0-9]">
+                    <input type="text" maxlength="1" class="digit-input" pattern="[0-9]">
+                    <input type="text" maxlength="1" class="digit-input" pattern="[0-9]">
+                </div>
+                <button class="btn btn-primary">Verify</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-focus next input when typing
+        const digitInputs = document.querySelectorAll('.digit-input');
+        digitInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value && index < digitInputs.length - 1) {
+                    digitInputs[index + 1].focus();
+                }
+            });
+
+            // Handle backspace
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    digitInputs[index - 1].focus();
+                }
+            });
+        });
+
+        // Handle file upload preview
+        const fileInput = document.getElementById('photo-upload');
+        const uploadPreview = document.querySelector('.upload-preview');
+        const uploadIcon = uploadPreview.querySelector('i');
+        const uploadText = uploadPreview.querySelector('.upload-text');
+        const verificationSection = document.querySelector('.verification-section');
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    uploadPreview.style.backgroundImage = `url(${e.target.result})`;
+                    uploadPreview.style.backgroundSize = 'cover';
+                    uploadPreview.style.backgroundPosition = 'center';
+                    uploadIcon.style.display = 'none';
+                    uploadText.style.display = 'none';
+                    
+                    // Show verification section after successful upload
+                    setTimeout(() => {
+                        verificationSection.style.display = 'block';
+                        digitInputs[0].focus(); // Focus first input
+                    }, 500);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
