@@ -4,15 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedTrace - Notifications</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #0096FF;
-            --text-gray: #666;
-            --border-color: #e1e1e1;
-            --red: #ff4444;
-            --blue: #2196f3;
-            --green: #4CAF50;
-            --yellow: #ffc107;
+            --primary-color: #1e88e5;
+            --white: #ffffff;
+            --text-gray: #546e7a;
+            --border-color: #e3f2fd;
+            --red: #ef5350;
+            --yellow: #ffa726;
+            --green: #66bb6a;
+            --shadow-sm: 0 2px 4px rgba(30, 136, 229, 0.1);
+            --shadow-md: 0 4px 6px rgba(30, 136, 229, 0.15);
+            --shadow-lg: 0 8px 16px rgba(30, 136, 229, 0.2);
         }
 
         * {
@@ -23,7 +27,7 @@
         }
 
         body {
-            background: #f5f5f5;
+            background: #f8fafc;
         }
 
         .sidebar {
@@ -31,62 +35,81 @@
             left: 0;
             top: 0;
             bottom: 0;
-            width: 250px;
-            background: white;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            width: 280px;
+            background: var(--white);
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+            border-right: 1px solid var(--border-color);
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 30px;
+            gap: 12px;
+            margin-bottom: 40px;
+            padding: 8px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            background: #e3f2fd;
         }
 
         .logo img {
-            width: 40px;
-            height: 40px;
-            background: #0d6efd;
-            border-radius: 8px;
-            padding: 8px;
+            width: 48px;
+            height: 48px;
+            background: var(--primary-color);
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: var(--shadow-sm);
         }
 
         .logo-text {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
-            color: #333;
+            color: #1e293b;
         }
 
         .logo-subtitle {
-            font-size: 12px;
-            color: #0d6efd;
+            font-size: 13px;
+            color: var(--primary-color);
+            font-weight: 500;
         }
 
         .menu-item {
             display: flex;
             align-items: center;
-            padding: 12px 15px;
-            margin: 5px 0;
-            border-radius: 8px;
+            padding: 14px 18px;
+            margin: 8px 0;
+            border-radius: 12px;
             cursor: pointer;
-            color: #666;
-            transition: all 0.3s;
+            color: var(--text-gray);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .menu-item:hover {
+            background: #e3f2fd;
+            color: var(--primary-color);
         }
 
         .menu-item.active {
-            background: #0d6efd;
-            color: white;
+            background: var(--primary-color);
+            color: var(--white);
+            box-shadow: var(--shadow-md);
         }
 
         .menu-item i {
-            margin-right: 10px;
-            width: 20px;
+            margin-right: 12px;
+            width: 24px;
+            font-size: 18px;
         }
 
         .main-content {
-            margin-left: 250px;
-            padding: 20px;
+            margin-left: 280px;
+            padding: 32px;
+            max-width: 1400px;
         }
 
 
@@ -94,96 +117,116 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            backdrop-filter: blur(10px);
         }
 
         .header-title h1 {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 4px;
+            font-size: 32px;
+            background: linear-gradient(45deg, #1e88e5, #64b5f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
         }
 
         .header-title p {
             color: var(--text-gray);
-            font-size: 14px;
+            font-size: 16px;
+            font-weight: 500;
         }
 
         .mark-all-btn {
-            color: var(--primary-color);
-            background: none;
+            color: var(--white);
+            background: linear-gradient(45deg, var(--primary-color), #64b5f6);
             border: none;
             cursor: pointer;
             font-size: 14px;
             display: flex;
             align-items: center;
             gap: 8px;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
         }
 
-        /* Notification Cards */
+        .mark-all-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
         .notification-list {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
         }
 
         .notification-card {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 24px;
             display: flex;
             align-items: flex-start;
-            gap: 16px;
+            gap: 20px;
             position: relative;
             border-left: 4px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+            backdrop-filter: blur(10px);
+        }
+
+        .notification-card:hover {
+            transform: translateX(4px) translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .notification-card.unread {
-            background: #f8f9fa;
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
         }
 
-        .notification-card.alert {
-            border-left-color: var(--red);
-        }
-
-        .notification-card.info {
-            border-left-color: var(--blue);
-        }
-
-        .notification-card.success {
-            border-left-color: var(--green);
-        }
-
-        .notification-card.warning {
-            border-left-color: var(--yellow);
-        }
+        .notification-card.alert { border-left-color: var(--red); }
+        .notification-card.info { border-left-color: var(--primary-color); }
+        .notification-card.success { border-left-color: var(--green); }
+        .notification-card.warning { border-left-color: var(--yellow); }
 
         .notification-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .notification-card:hover .notification-icon {
+            transform: scale(1.1);
         }
 
         .notification-icon.alert {
-            background: rgba(255, 68, 68, 0.1);
+            background: linear-gradient(145deg, #ffebee, #ffcdd2);
             color: var(--red);
         }
 
         .notification-icon.info {
-            background: rgba(33, 150, 243, 0.1);
-            color: var(--blue);
+            background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+            color: var(--primary-color);
         }
 
         .notification-icon.success {
-            background: rgba(76, 175, 80, 0.1);
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9);
             color: var(--green);
         }
 
         .notification-icon.warning {
-            background: rgba(255, 193, 7, 0.1);
+            background: linear-gradient(145deg, #fff3e0, #ffe0b2);
             color: var(--yellow);
         }
 
@@ -192,25 +235,28 @@
         }
 
         .notification-title {
-            font-weight: 500;
-            margin-bottom: 4px;
-            color: #333;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1e293b;
         }
 
         .notification-message {
             color: var(--text-gray);
-            font-size: 14px;
-            margin-bottom: 8px;
+            font-size: 15px;
+            margin-bottom: 12px;
+            line-height: 1.5;
         }
 
         .notification-time {
             color: var(--text-gray);
-            font-size: 12px;
+            font-size: 13px;
+            font-weight: 500;
         }
 
         .notification-actions {
             display: flex;
-            gap: 12px;
+            gap: 16px;
         }
 
         .action-btn {
@@ -219,10 +265,36 @@
             cursor: pointer;
             color: var(--text-gray);
             opacity: 0.6;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            padding: 8px;
+            border-radius: 8px;
         }
 
         .action-btn:hover {
             opacity: 1;
+            background: rgba(30, 136, 229, 0.1);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 80px;
+                padding: 20px 10px;
+            }
+
+            .logo-text, .logo-subtitle {
+                display: none;
+            }
+
+            .menu-item span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 80px;
+                padding: 20px;
+            }
         }
     </style>
 </head>
