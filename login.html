@@ -25,7 +25,8 @@
             background-color: #2a3990;
             color: white;
             padding: 2rem;
-            width: 40%;
+            width: 300px;
+            position: relative;
         }
 
         .logo {
@@ -73,25 +74,33 @@
 
         .cards-container {
             display: flex;
-            gap: 2rem;
+            flex-direction: row;
+            gap: 1.5rem;
             padding: 2rem;
             flex: 1;
             align-items: center;
             justify-content: center;
+            flex-wrap: nowrap;
+            overflow-x: auto;
         }
 
         .role-card {
             background: white;
             border-radius: 16px;
-            padding: 2rem;
-            width: 300px;
+            padding: 1.5rem;
+            width: 250px;
+            min-width: 250px;
+            height: auto;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .role-icon {
-            width: 64px;
-            height: 64px;
+            width: 48px;
+            height: 48px;
             border-radius: 12px;
             margin: 0 auto 1rem;
             display: flex;
@@ -109,38 +118,42 @@
             color: #1e88e5;
         }
 
-        .pharmacy .role-icon {
+        .pharmacy .role-icon,
+        .retailer .role-icon {
             background-color: #f3e5f5;
             color: #8e24aa;
         }
 
         .role-title {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             margin-bottom: 0.5rem;
             color: #333;
         }
 
         .role-description {
             color: #666;
-            margin-bottom: 2rem;
-            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+            font-size: 0.9rem;
         }
 
         .features-list {
             text-align: left;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .feature-item {
             display: flex;
             align-items: center;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
             color: #555;
+            font-size: 0.9rem;
         }
 
         .feature-item i {
             margin-right: 0.5rem;
-            font-size: 1.25rem;
+            font-size: 1rem;
+            min-width: 20px;
         }
 
         .btn {
@@ -151,7 +164,9 @@
             border: none;
             font-weight: 500;
             cursor: pointer;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
 
         .btn-outline {
@@ -159,19 +174,9 @@
             border: 1px solid;
         }
 
-        .manufacturer .btn-primary {
-            background-color: #43a047;
-            color: white;
-        }
-
         .manufacturer .btn-outline {
             border-color: #43a047;
             color: #43a047;
-        }
-
-        .distributor .btn-primary {
-            background-color: #1e88e5;
-            color: white;
         }
 
         .distributor .btn-outline {
@@ -179,14 +184,44 @@
             color: #1e88e5;
         }
 
-        .pharmacy .btn-primary {
-            background-color: #8e24aa;
-            color: white;
-        }
-
-        .pharmacy .btn-outline {
+        .pharmacy .btn-outline,
+        .retailer .btn-outline {
             border-color: #8e24aa;
             color: #8e24aa;
+        }
+
+        @media (max-width: 1200px) {
+            .cards-container {
+                gap: 1rem;
+            }
+
+            .role-card {
+                width: 220px;
+                min-width: 220px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 1.5rem;
+            }
+
+            .cards-container {
+                padding: 1rem;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .copyright {
+                position: relative;
+                bottom: auto;
+                margin-top: 2rem;
+            }
         }
     </style>
 </head>
@@ -239,7 +274,27 @@
                 <button onclick="window.location.href='mlogin.html';"  class="btn btn-outline">Sign In</button>
               
             </div>
-            
+             <div class="role-card pharmacy">
+                <div class="role-icon">💊</div>
+                <h2 class="role-title">Pharmacy</h2>
+                <p class="role-description">Verify authenticity and manage pharmaceutical inventory</p>
+                <div class="features-list">
+                    <div class="feature-item">
+                        <i>✓</i>
+                        <span>Product verification</span>
+                    </div>
+                    <div class="feature-item">
+                        <i>📦</i>
+                        <span>Stock management</span>
+                    </div>
+                    <div class="feature-item">
+                        <i>❤️</i>
+                        <span>Patient safety</span>
+                    </div>
+                </div>
+                <button onclick="window.location.href='lslogin.html';" class="btn btn-outline">Sign In</button>
+              
+            </div>
             <div class="role-card distributor">
                 <div class="role-icon">🚚</div>
                 <h2 class="role-title">Distributor</h2>
@@ -262,10 +317,11 @@
               
             </div>
             
-            <div class="role-card pharmacy">
+           
+            <div class="role-card retailer">
                 <div class="role-icon">💊</div>
-                <h2 class="role-title">Pharmacy</h2>
-                <p class="role-description">Verify authenticity and manage pharmaceutical inventory</p>
+                <h2 class="role-title">Retailers</h2>
+                <p class="role-description">Track production, manage inventory, and ensure compliance</p>
                 <div class="features-list">
                     <div class="feature-item">
                         <i>✓</i>
@@ -280,7 +336,7 @@
                         <span>Patient safety</span>
                     </div>
                 </div>
-                <button onclick="window.location.href='lslogin.html';" class="btn btn-outline">Sign In</button>
+                <button onclick="window.location.href='slogin.html';"  class="btn btn-outline">Sign In</button>
               
             </div>
         </div>
