@@ -20,37 +20,75 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 5%;
-          
+            padding: 1.2rem 5%;
+            background: var(--white);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.8rem 5%;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
         }
 
         .logo {
-            width: 32px;
-            height: 32px;
-            background: #1da1f2;
-            border-radius: 8px;
+            width: 38px;
+            height: 38px;
+            background: var(--primary);
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: rotate(10deg);
         }
 
         .logo-text {
-            font-size: 1.5rem;
-            color: #1da1f2;
-            font-weight: 600;
+            font-size: 1.6rem;
+            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: #174ca7;
+            color: #333;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .get-started-btn {
