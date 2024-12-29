@@ -10,67 +10,153 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <style>
-         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
-
-        body {
-            display: flex;
-            background: #f5f6fa;
-        }
-
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            background: white;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: #2a3990;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px;
-            margin: 4px 0;
-            border-radius: 8px;
-            color: #666;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .nav-item.active {
-            background: #2a3990;
-            color: white;
-        }
-
-        .main-content {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            height: 100vh;
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+    
+    :root {
+        --primary-blue: #1e88e5;
+        --white: #ffffff;
+        --light-blue: rgba(60, 139, 208, 0.667);
+        --hover-blue: #54a3e4;
+        --text-primary: #2c3e50;
+        --text-secondary: #607d8b;
+        --success: #22c55e;
+        --danger: #ef4444;
+    }
+    
+    body {
+        background-color: #f8fafc;
+        min-height: 100vh;
+    }
+    
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 280px;
+        background: var(--white);
+        padding: 24px;
+        box-shadow: 0 0 20px rgba(30, 136, 229, 0.1);
+        border-right: 1px solid rgba(30, 136, 229, 0.1);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+    }
+    
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 40px;
+        padding: 0 12px;
+    }
+    
+    .logo-icon {
+        width: 48px;
+        height: 48px;
+        background: var(--primary-blue);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        font-weight: bold;
+        font-size: 24px;
+        box-shadow: 0 8px 16px rgba(30, 136, 229, 0.25);
+        transition: transform 0.3s ease;
+    }
+    
+    .logo-icon:hover {
+        transform: scale(1.05);
+    }
+    
+    .logo-text {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: -0.5px;
+        background: linear-gradient(45deg, var(--primary-blue), #64b5f6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .logo-subtitle {
+        font-size: 14px;
+        color: var(--primary-blue);
+        font-weight: 500;
+        opacity: 0.9;
+    }
+    
+    .menu-item {
+        display: flex;
+        align-items: center;
+        padding: 16px 20px;
+        margin: 8px 0;
+        border-radius: 14px;
+        cursor: pointer;
+        color: var(--text-secondary);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-weight: 500;
+        gap: 18px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .menu-item:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 0;
+        background: var(--primary-blue);
+        opacity: 0.1;
+        transition: width 0.3s ease;
+    }
+    
+    .menu-item:hover:before {
+        width: 100%;
+    }
+    
+    .menu-item i {
+        font-size: 18px;
+        width: 24px;
+        text-align: center;
+        flex-shrink: 0;
+        transition: transform 0.3s ease;
+    }
+    
+    .menu-item:hover i {
+        transform: scale(1.1);
+        color: var(--primary-blue);
+    }
+    
+    .menu-item span {
+        flex: 1;
+        white-space: nowrap;
+        transition: color 0.3s ease;
+    }
+    
+    .menu-item.active {
+        background: linear-gradient(45deg, var(--primary-blue), #64b5f6);
+        color: var(--white);
+        box-shadow: 0 4px 15px rgba(72, 147, 217, 0.852);
+    }
+    
+    .menu-item.active i {
+        color: var(--white);
+    }
+    
+    .main-content {
+            margin-left: 280px;
+            padding: 40px;
+            max-width: 1600px;
+            background: linear-gradient(135deg, #f6f9fc 0%, #f1f5f9 100%);
+            min-height: 100vh;
         }
 
         .formulation-form {
@@ -94,7 +180,7 @@
             display: block;
             margin-bottom: 5px;
             font-weight: 500;
-            color: #2a3990;
+            color: #3c84b7;
         }
 
         .form-control {
@@ -106,7 +192,7 @@
         }
 
         .form-control:focus {
-            border-color: #2a3990;
+            border-color: #64b5f6;
             outline: none;
         }
 
@@ -124,7 +210,7 @@
         }
 
         .btn-primary {
-            background: #2a3990;
+            background: #64b5f6;
             color: white;
         }
 
@@ -161,8 +247,8 @@
         }
 
         .tab-button.active {
-            border-bottom: 2px solid #2a3990;
-            color: #2a3990;
+            border-bottom: 2px solid #64b5f6;
+            color: #64b5f6;
         }
 
         table {
@@ -178,7 +264,7 @@
         }
 
         th {
-            color: #2a3990;
+            color: #64b5f6;
             font-weight: 600;
         }
 
@@ -190,7 +276,7 @@
 
         .status-draft {
             background: #e9ecef;
-            color: #2a3990;
+            color: #64b5f6;
         }
 
         .edit-mode {
@@ -384,30 +470,29 @@
         <div class="logo">
             <div class="logo-icon">M</div>
             <div>
-                <div style="font-weight: bold;">MedTrace</div>
-                <div style="font-size: 12px; color: #666;">Manufacturer Portal</div>
+                <div class="logo-text">MedTrace</div>
+                <div class="logo-subtitle">Manufacturer Portal</div>
             </div>
         </div>
-        <div class="nav-item " onclick="window.location.href='mdashboard.html';">
-            <span>📊</span>
-            Dashboard
+        <div class="menu-item " onclick="window.location.href = 'mdashboard.html';">
+            <i class="fas fa-chart-line"></i>
+            <span>Dashboard</span>
         </div>
-        <div class="nav-item" onclick="window.location.href='mship.html';">
-            <span>🚚</span>
-            Shipments
+        <div class="menu-item" onclick="window.location.href = 'mship.html';">
+            <i class="fas fa-truck"></i>
+            <span>Shipments</span>
         </div>
-        <div class="nav-item" onclick="window.location.href='mprofile.html';">
-            <span>👤</span>
-            Profile
+        <div class="menu-item" onclick="window.location.href = 'mprofile.html';">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
         </div>
-        <a href="#" class="nav-item active" onclick="window.location.href='mforumaltions.html';" >
-            <span style="color: #add1eb;"><i class="fas fa-pills"></i></span>
-
-            Formulation
-        </a>
-        <div class="nav-item" onclick="window.location.href='mnotification.html';">
-            <span>🔔</span>
-            Notifications
+        <div class="menu-item active" onclick="window.location.href = 'mforumaltions.html';">
+            <i class="fas fa-pills"></i>
+            <span>Formulation</span>
+        </div>
+        <div class="menu-item" onclick="window.location.href = 'mnotification.html';">
+            <i class="fas fa-bell"></i>
+            <span>Notifications</span>
         </div>
     </div>
     <!-- Previous sidebar content remains the same -->
@@ -420,7 +505,7 @@
         </div>
 
         <div id="formulationForm" class="formulation-form active">
-            <h2 style="margin-bottom: 20px; color: #2a3990;">New Product Formulation</h2>
+            <h2 style="margin-bottom: 20px; color: #64b5f6;">New Product Formulation</h2>
             
             <div class="form-group">
                 <label>Product Name *</label>
@@ -449,7 +534,7 @@
                 </div>
             </div>
 
-            <h3 style="margin: 20px 0; color: #2a3990;">Quality Control Parameters</h3>
+            <h3 style="margin: 20px 0; color: #64b5f6;">Quality Control Parameters</h3>
             <div class="form-group">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                     <div>
@@ -466,7 +551,7 @@
         </div>
 
         <div id="formulationList" class="formulation-details" style="display: none;">
-            <h3 style="color: #2a3990;">Previously Saved Formulations</h3>
+            <h3 style="color: #64b5f6;">Previously Saved Formulations</h3>
             <table>
                 <thead>
                     <tr>

@@ -3,184 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>MedTrace - Notifications</title>
     <style>
-        :root {
-            --primary-color: #0096FF;
-            --text-gray: #666;
-            --border-color: #e1e1e1;
-            --red: #ff4444;
-            --blue: #2196f3;
-            --green: #4CAF50;
-            --yellow: #ffc107;
-        }
-
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
-
-        body {
-            display: flex;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+    
+    :root {
+        --primary-blue: #1e88e5;
+        --white: #ffffff;
+        --light-blue: rgba(30, 136, 229, 0.08);
+        --hover-blue: rgba(30, 136, 229, 0.15);
+        --text-primary: #2c3e50;
+        --text-secondary: #607d8b;
+        --success: #22c55e;
+        --danger: #ef4444;
+    }
+    
+    body {
+        background-color: #f8fafc;
+        min-height: 100vh;
+    }
+    
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 280px;
+        background: var(--white);
+        padding: 24px;
+        box-shadow: 0 0 20px rgba(30, 136, 229, 0.1);
+        border-right: 1px solid rgba(30, 136, 229, 0.1);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+    }
+    
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 40px;
+        padding: 0 12px;
+    }
+    
+    .logo-icon {
+        width: 48px;
+        height: 48px;
+        background: var(--primary-blue);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        font-weight: bold;
+        font-size: 24px;
+        box-shadow: 0 8px 16px rgba(30, 136, 229, 0.25);
+        transition: transform 0.3s ease;
+    }
+    
+    .logo-icon:hover {
+        transform: scale(1.05);
+    }
+    
+    .logo-text {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: -0.5px;
+        background: linear-gradient(45deg, var(--primary-blue), #64b5f6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .logo-subtitle {
+        font-size: 14px;
+        color: var(--primary-blue);
+        font-weight: 500;
+        opacity: 0.9;
+    }
+    
+    .menu-item {
+        display: flex;
+        align-items: center;
+        padding: 16px 20px;
+        margin: 8px 0;
+        border-radius: 14px;
+        cursor: pointer;
+        color: var(--text-secondary);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-weight: 500;
+        gap: 18px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .menu-item:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 0;
+        background: var(--primary-blue);
+        opacity: 0.1;
+        transition: width 0.3s ease;
+    }
+    
+    .menu-item:hover:before {
+        width: 100%;
+    }
+    
+    .menu-item i {
+        font-size: 18px;
+        width: 24px;
+        text-align: center;
+        flex-shrink: 0;
+        transition: transform 0.3s ease;
+    }
+    
+    .menu-item:hover i {
+        transform: scale(1.1);
+        color: var(--primary-blue);
+    }
+    
+    .menu-item span {
+        flex: 1;
+        white-space: nowrap;
+        transition: color 0.3s ease;
+    }
+    
+    .menu-item.active {
+        background: linear-gradient(45deg, var(--primary-blue), #64b5f6);
+        color: var(--white);
+        box-shadow: 0 4px 15px rgba(30, 136, 229, 0.3);
+    }
+    
+    .menu-item.active i {
+        color: var(--white);
+    }
+    
+    .main-content {
+            margin-left: 280px;
+            padding: 40px;
+            max-width: 1600px;
+            background: linear-gradient(135deg, #f6f9fc 0%, #e3f2fd 100%);
             min-height: 100vh;
-            background-color: #f5f6fa;
         }
-
-
-        .sidebar {
-            width: 260px;
-            background-color: white;
-            padding: 20px;
-            border-right: 1px solid #e1e4e8;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 0 30px 0;
-        }
-
-        .logo {
-            width: 40px;
-            height: 40px;
-            background-color: #0095ff;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .logo-text {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1a1f36;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            margin: 4px 0;
-            border-radius: 6px;
-            color: #5e6c84;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .nav-item.active {
-            background-color: #0095ff;
-            color: white;
-        }
-
-        .nav-item:hover:not(.active) {
-            background-color: #f5f6fa;
-        }
-
-        .main-content {
-            flex: 1;
-            padding: 30px;
-        }
-
 
         .header {
+            background: var(--white);
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(30, 136, 229, 0.1);
+            margin-bottom: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .header:hover {
+            transform: translateY(-2px);
         }
 
         .header-title h1 {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 4px;
+            font-size: 28px;
+            color: #1e88e5;
+            margin-bottom: 8px;
+            font-weight: 600;
         }
 
         .header-title p {
-            color: var(--text-gray);
-            font-size: 14px;
+            color: #64748b;
+            font-size: 15px;
+            font-weight: 500;
         }
 
         .mark-all-btn {
-            color: var(--primary-color);
-            background: none;
+            padding: 12px 24px;
+            background: #1e88e5;
+            color: #ffffff;
             border: none;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.2);
         }
 
-        /* Notification Cards */
+        .mark-all-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 136, 229, 0.3);
+        }
+
         .notification-list {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
         }
 
         .notification-card {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px;
             display: flex;
             align-items: flex-start;
-            gap: 16px;
+            gap: 20px;
             position: relative;
-            border-left: 4px solid transparent;
+            border-left: 5px solid transparent;
+            box-shadow: 0 4px 20px rgba(30, 136, 229, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .notification-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 30px rgba(30, 136, 229, 0.15);
         }
 
         .notification-card.unread {
-            background: #f8f9fa;
+            background: linear-gradient(to right, rgba(30, 136, 229, 0.03), var(--white));
         }
 
-        .notification-card.alert {
-            border-left-color: var(--red);
-        }
-
-        .notification-card.info {
-            border-left-color: var(--blue);
-        }
-
-        .notification-card.success {
-            border-left-color: var(--green);
-        }
-
-        .notification-card.warning {
-            border-left-color: var(--yellow);
-        }
+        .notification-card.alert { border-left-color: #ef4444; }
+        .notification-card.info { border-left-color: #1e88e5; }
+        .notification-card.success { border-left-color: #22c55e; }
+        .notification-card.warning { border-left-color: #f59e0b; }
 
         .notification-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .notification-card:hover .notification-icon {
+            transform: scale(1.1);
         }
 
         .notification-icon.alert {
-            background: rgba(255, 68, 68, 0.1);
-            color: var(--red);
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
         }
 
         .notification-icon.info {
-            background: rgba(33, 150, 243, 0.1);
-            color: var(--blue);
+            background: rgba(30, 136, 229, 0.1);
+            color: #1e88e5;
         }
 
         .notification-icon.success {
-            background: rgba(76, 175, 80, 0.1);
-            color: var(--green);
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
         }
 
         .notification-icon.warning {
-            background: rgba(255, 193, 7, 0.1);
-            color: var(--yellow);
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
         }
 
         .notification-content {
@@ -188,85 +279,102 @@
         }
 
         .notification-title {
-            font-weight: 500;
-            margin-bottom: 4px;
-            color: #333;
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1e293b;
         }
 
         .notification-message {
-            color: var(--text-gray);
-            font-size: 14px;
-            margin-bottom: 8px;
+            color: #64748b;
+            font-size: 15px;
+            margin-bottom: 12px;
+            line-height: 1.5;
         }
 
         .notification-time {
-            color: var(--text-gray);
-            font-size: 12px;
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 500;
         }
 
         .notification-actions {
             display: flex;
-            gap: 12px;
+            gap: 16px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .notification-card:hover .notification-actions {
+            opacity: 1;
         }
 
         .action-btn {
-            background: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: #f1f5f9;
             border: none;
             cursor: pointer;
-            color: var(--text-gray);
-            opacity: 0.6;
+            color: #64748b;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
 
         .action-btn:hover {
-            opacity: 1;
+            background: #1e88e5;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .notification-card {
+            animation: slideIn 0.5s ease;
         }
     </style>
 </head>
 <body>
     <div class="sidebar">
-        <div class="logo-container">
-            <div class="logo">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                </svg>
+        <div class="logo">
+            <div class="logo-icon">M</div>
+            <div>
+                <div class="logo-text">MedTrace</div>
+                <div class="logo-subtitle">Manufacturer Portal</div>
             </div>
-            <div class="logo-text">MedTrace</div>
-            
         </div>
-        
-        <nav>
-            <a href="#" class="nav-item" onclick="window.location.href='mdashboard.html';">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
-                    <line x1="9" y1="3" x2="9" y2="21"></line>
-                </svg>
-                Dashboard
-            </a>
-            <a href="#" class="nav-item" onclick="window.location.href='mship.html';">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
-                </svg>
-                Shipments
-            </a>
-            <a href="#" class="nav-item " onclick="window.location.href='mprofile.html';">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-                Profile
-            </a>
-            <a href="#" class="nav-item" onclick="window.location.href='mforumaltions.html';">
-                <span style="color: #0095ff;"><i class="fas fa-pills"></i></span>
-
-                Formulation
-            </a>
-            <a href="#" class="nav-item active" onclick="window.location.href='mnotification.html';">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0"></path>
-                </svg>
-                Notifications
-            </a>
-        </nav>
+        <div class="menu-item " onclick="window.location.href = 'mdashboard.html';">
+            <i class="fas fa-chart-line"></i>
+            <span>Dashboard</span>
+        </div>
+        <div class="menu-item" onclick="window.location.href = 'mship.html';">
+            <i class="fas fa-truck"></i>
+            <span>Shipments</span>
+        </div>
+        <div class="menu-item" onclick="window.location.href = 'mprofile.html';">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </div>
+        <div class="menu-item" onclick="window.location.href = 'mforumaltions.html';">
+            <i class="fas fa-pills"></i>
+            <span>Formulation</span>
+        </div>
+        <div class="menu-item active" onclick="window.location.href = 'mnotification.html';">
+            <i class="fas fa-bell"></i>
+            <span>Notifications</span>
+        </div>
     </div>
 
         <!-- Main Content -->
